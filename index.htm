@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Oddities Vault - Curiosities & Bizarre Relics</title>
+    <style>
+         :root {
+            --primary: #6b21a8;
+            /* Purple mist */
+            --primary-dark: #3b0764;
+            --secondary: #0d9488;
+            /* Dark teal */
+            --accent: #f59e0b;
+            /* Mystical amber */
+            --dark: #0f172a;
+            --text-muted: #64748b;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #f1f5f9;
+        }
+        
+        .hero-cover {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            background: linear-gradient(180deg, rgba(59, 7, 100, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(107, 33, 168, 0.3);
+        }
+        
+        .hero-cover h1 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #f3e8ff;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+        }
+        
+        .hero-cover p {
+            margin-top: 10px;
+            font-size: 15px;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+        
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px 15px 50px;
+        }
+        /* Category Navigation */
+        
+        .category-nav {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 5px 20px;
+            scrollbar-width: none;
+        }
+        
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .cat-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #cbd5e1;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .cat-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+        }
+        
+        .cat-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: #c084fc;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+        /* Menu / Item Cards */
+        
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .menu-item {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border-left-color: #c084fc;
+        }
+        
+        .menu-img {
+            width: 75px;
+            height: 75px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .menu-info {
+            flex-grow: 1;
+        }
+        
+        .menu-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #f8fafc;
+        }
+        
+        .menu-info p {
+            margin: 0;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 15px;
+        }
+        
+        .btn-tambah {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-tambah:hover {
+            filter: brightness(1.2);
+            transform: scale(1.05);
+        }
+        /* Order Form & Cart */
+        
+        .form-pesanan {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 25px;
+            margin-top: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-pesanan h3 {
+            margin-top: 0;
+            color: #e9d5ff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .ringkasan-pesanan {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+        
+        .ringkasan-pesanan ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #c084fc;
+            box-shadow: 0 0 8px rgba(192, 132, 252, 0.4);
+        }
+        /* Payment Options */
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .payment-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .payment-card input {
+            display: none;
+        }
+        
+        .payment-card span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+        
+        .payment-card:has(input:checked) {
+            border-color: #c084fc;
+            background: rgba(107, 33, 168, 0.3);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+        
+        .payment-card:has(input:checked) span {
+            color: #fff;
+        }
+        
+        .btn-kirim {
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            color: #0f172a;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-kirim:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+        /* Modal Overlay */
+        
+        .modal-pembayaran {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content-pay {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 380px;
+            width: 85%;
+            text-align: center;
+        }
+        
+        .qris-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 2px solid #fff;
+        }
+        
+        .bank-info {
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: left;
+            margin: 12px 0;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-salin {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            float: right;
+            cursor: pointer;
+        }
+        
+        .btn-close-modal {
+            background: transparent;
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-cover">
+        <h1>The Oddities Vault</h1>
+        <p>Curated Collection of Strange Artifacts, Mysterious Relics, & Bizarre Curiosities</p>
+    </div>
+
+    <div class="container">
+
+        <!-- Category Filters -->
+        <div class="category-nav">
+            <button class="cat-btn active" onclick="filterMenu('artifacts', event)">🔮 Magic Artifacts</button>
+            <button class="cat-btn" onclick="filterMenu('specimens', event)">🧪 Bizarre Specimens</button>
+            <button class="cat-btn" onclick="filterMenu('gadgets', event)">📟 Occult Gadgets</button>
+            <button class="cat-btn" onclick="filterMenu('relics', event)">📜 Classified Manuscripts</button>
+        </div>
+
+        <!-- Product List -->
+        <div class="menu-container" id="menu-list"></div>
+
+        <!-- Acquisition Form & Cart -->
+        <div class="form-pesanan">
+            <h3>🛒 Acquisition Cart</h3>
+
+            <div class="ringkasan-pesanan">
+                <ul id="daftar-item">
+                    <li style="color: #94a3b8; font-size: 14px;">No artifacts selected yet</li>
+                </ul>
+                <p style="margin: 12px 0 0 0; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 10px; font-size: 15px;">
+                    <strong>Total Value: <span id="total-harga" style="color: var(--accent);">$0</span></strong>
+                </p>
+            </div>
+
+            <h3>👤 Collector Details</h3>
+            <label for="nama">Full Name / Alias:</label>
+            <input type="text" id="nama" placeholder="e.g. Agent X / Prof. Smith" required>
+
+            <label for="alamat">Discreet Shipping Address:</label>
+            <input type="text" id="alamat" placeholder="Enter secure drop-off address" required>
+
+            <h3>💳 Transaction Method</h3>
+            <div class="payment-options">
+                <label class="payment-card">
+                    <input type="radio" name="pembayaran" value="COD" checked>
+                    <span>Discreet Courier (COD)</span>
+                </label>
+                <label class="payment-card">
+                    <input type="radio" name="pembayaran" value="Crypto/E-Wallet">
+                    <span>Crypto / E-Wallet</span>
+                </label>
+                <label class="payment-card">
+                    <input type="radio" name="pembayaran" value="Bank Wire">
+                    <span>Direct Wire Transfer</span>
+                </label>
+                <label class="payment-card">
+                    <input type="radio" name="pembayaran" value="PayPal">
+                    <span>PayPal Vault</span>
+                </label>
+            </div>
+
+            <button class="btn-kirim" onclick="prosesPembayaran()">Proceed to Checkout</button>
+
+            <!-- Payment Modal -->
+            <div class="modal-pembayaran" id="modalPembayaran">
+                <div class="modal-content-pay">
+                    <h3 id="modalTitle" style="margin-top:0; color: #c084fc;">Payment Instructions</h3>
+                    <div id="modalBody"></div>
+
+                    <button class="btn-kirim" onclick="konfirmasiDanKirimWA()" style="margin-top: 15px;">Submit Order via WhatsApp</button>
+                    <button class="btn-close-modal" onclick="tutupModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Database of Strange Products
+        const databaseMenu = [
+            // Magic Artifacts
+            {
+                nama: "Blue Jeans",
+                harga: 450,
+                kategori: "artifacts",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            }, {
+                nama: "Tumblr X Magic",
+                harga: 320,
+                kategori: "artifacts",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            }, {
+                nama: "Black Spoon",
+                harga: 125,
+                kategori: "artifacts",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            },
+
+            // Bizarre Specimens
+            {
+                nama: "One Wish One Life",
+                harga: 85,
+                kategori: "specimens",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            }, {
+                nama: "Black Sand from Phantom Volcano",
+                harga: 150,
+                kategori: "specimens",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            },
+
+            // Occult Gadgets
+            {
+                nama: "Dark Frequency Ghost Detector",
+                harga: 750,
+                kategori: "gadgets",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            }, {
+                nama: "Spectral Infrared Goggles",
+                harga: 580,
+                kategori: "gadgets",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            },
+
+            // Classified Manuscripts
+            {
+                nama: "17th-Century Sunken Treasure Map",
+                harga: 990,
+                kategori: "relics",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            }, {
+                nama: "Untranslatable Ancient Cipher Scroll",
+                harga: 650,
+                kategori: "relics",
+                gambar: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
+            }
+        ];
+
+        let keranjang = [];
+        let total = 0;
+
+        function renderMenu(kategoriDipilih) {
+            const menuListContainer = document.getElementById('menu-list');
+            menuListContainer.innerHTML = '';
+
+            databaseMenu.forEach(item => {
+                if (item.kategori === kategoriDipilih) {
+                    const itemHTML = `
+                        <div class="menu-item">
+                            <img src="${item.gambar}" alt="${item.nama}" class="menu-img">
+                            <div class="menu-info">
+                                <h3>${item.nama}</h3>
+                                <p>$${item.harga.toLocaleString()}</p>
+                            </div>
+                            <button class="btn-tambah" onclick="tambahKeKeranjang('${item.nama}', ${item.harga})">+ Acquire</button>
+                        </div>
+                    `;
+                    menuListContainer.innerHTML += itemHTML;
+                }
+            });
+        }
+
+        function filterMenu(kategori, evt) {
+            const tombols = document.querySelectorAll('.cat-btn');
+            tombols.forEach(btn => btn.classList.remove('active'));
+
+            if (evt) {
+                evt.currentTarget.classList.add('active');
+            }
+            renderMenu(kategori);
+        }
+
+        function tambahKeKeranjang(namaItem, harga) {
+            keranjang.push({
+                namaItem,
+                harga
+            });
+            total += harga;
+            updateUI();
+        }
+
+        function hapusDariKeranjang(index) {
+            total -= keranjang[index].harga;
+            keranjang.splice(index, 1);
+            updateUI();
+        }
+
+        function updateUI() {
+            const daftarItem = document.getElementById('daftar-item');
+            const totalHarga = document.getElementById('total-harga');
+
+            if (keranjang.length === 0) {
+                daftarItem.innerHTML = `<li style="color: #94a3b8; font-size: 14px;">No artifacts selected yet</li>`;
+            } else {
+                daftarItem.innerHTML = '';
+                keranjang.forEach((item, index) => {
+                    let li = document.createElement('li');
+                    li.style.display = 'flex';
+                    li.style.justifyContent = 'space-between';
+                    li.style.alignItems = 'center';
+                    li.style.marginBottom = '8px';
+                    li.style.fontSize = '14px';
+
+                    li.innerHTML = `
+                        <span>${item.namaItem} - <strong>$${item.harga.toLocaleString()}</strong></span>
+                        <button onclick="hapusDariKeranjang(${index})" style="
+                            background: transparent; color: #f87171; border: none; cursor: pointer; font-weight: bold; margin-left: 10px;
+                        ">✕</button>
+                    `;
+                    daftarItem.appendChild(li);
+                });
+            }
+            totalHarga.textContent = `$${total.toLocaleString()}`;
+        }
+
+        function prosesPembayaran() {
+            const nama = document.getElementById('nama').value;
+            const alamat = document.getElementById('alamat').value;
+            const metodeElem = document.querySelector('input[name="pembayaran"]:checked');
+
+            if (!nama || !alamat || keranjang.length === 0) {
+                alert('Please provide a Name/Alias, Shipping Address, and select at least 1 artifact!');
+                return;
+            }
+
+            const metode = metodeElem.value;
+
+            if (metode === 'COD') {
+                konfirmasiDanKirimWA();
+            } else if (metode === 'Crypto/E-Wallet') {
+                document.getElementById('modalTitle').innerText = 'Cryptographic / Digital Vault Payment';
+                document.getElementById('modalBody').innerHTML = `
+                    <p style="font-size: 13px; color: #cbd5e1;">Scan QR or address to complete artifact tribute:</p>
+                    <img src="https://via.placeholder.com/180?text=CRYPTO+VAULT" class="qris-img" alt="QR Code">
+                    <p style="font-size: 14px;"><strong>Total Due: <span style="color: var(--accent);">$${total.toLocaleString()}</span></strong></p>
+                `;
+                document.getElementById('modalPembayaran').style.display = 'flex';
+            } else if (metode === 'Bank Wire' || metode === 'PayPal') {
+                const accNo = metode === 'Bank Wire' ? 'US893019283011' : 'vault@oddities.store';
+                document.getElementById('modalTitle').innerText = `${metode} Details`;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="bank-info">
+                        <button class="btn-salin" onclick="navigator.clipboard.writeText('${accNo}'); alert('Copied to clipboard!');">Copy</button>
+                        <p style="margin:0; font-size:11px; color:#94a3b8;">Destination Account:</p>
+                        <p style="margin:4px 0 0 0; font-size:16px; font-weight:800; color: #c084fc;">${accNo}</p>
+                        <p style="margin:4px 0 0 0; font-size:11px; color:#94a3b8;">Beneficiary: The Oddities Vault LLC</p>
+                    </div>
+                    <p style="font-size: 14px;"><strong>Total Tribute: <span style="color: var(--accent);">$${total.toLocaleString()}</span></strong></p>
+                `;
+                document.getElementById('modalPembayaran').style.display = 'flex';
+            }
+        }
+
+        function tutupModal() {
+            document.getElementById('modalPembayaran').style.display = 'none';
+        }
+
+        function konfirmasiDanKirimWA() {
+            const nama = document.getElementById('nama').value;
+            const alamat = document.getElementById('alamat').value;
+            const opsiPembayaran = document.querySelector('input[name="pembayaran"]:checked').value;
+            const nomorWA_Vault = "0895399475224"; // Insert recipient phone number here
+
+            let daftarItemTeks = '';
+            keranjang.forEach((item, index) => {
+                daftarItemTeks += `${index + 1}. ${item.namaItem}%0A`;
+            });
+
+            const pesan = `*ARTIFACT ACQUISITION ORDER - THE ODDITIES VAULT*%0A%0A` +
+                `*Collector Alias:* ${nama}%0A` +
+                `*Discreet Address:* ${alamat}%0A%0A` +
+                `*Requested Artifacts:*%0A${daftarItemTeks}%0A` +
+                `*Total Tribute:* $${total.toLocaleString()}%0A` +
+                `*Payment Method:* ${opsiPembayaran}%0A%0A` +
+                `_Please wait for the item to arrive._`;
+
+            window.open(`https://api.whatsapp.com/send?phone=${nomorWA_Vault}&text=${pesan}`, '_blank');
+        }
+
+        // Initialize default view
+        renderMenu('artifacts');
+    </script>
+</body>
+
+</html>

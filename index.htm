@@ -602,7 +602,9 @@
             const nama = document.getElementById('nama').value;
             const alamat = document.getElementById('alamat').value;
             const opsiPembayaran = document.querySelector('input[name="pembayaran"]:checked').value;
-            const nomorWA_Vault = "0895399475224"; // Insert recipient phone number here
+
+            // Nomor WhatsApp Vault yang telah diperbarui
+            const nomorWA_Vault = "62895299475224";
 
             let daftarItemTeks = '';
             keranjang.forEach((item, index) => {
@@ -615,11 +617,10 @@
                 `*Requested Artifacts:*%0A${daftarItemTeks}%0A` +
                 `*Total Tribute:* $${total.toLocaleString()}%0A` +
                 `*Payment Method:* ${opsiPembayaran}%0A%0A` +
-                `_Please wait for the item to arrive._`;
+                `_Please wait for the Goods._`;
 
             window.open(`https://api.whatsapp.com/send?phone=${nomorWA_Vault}&text=${pesan}`, '_blank');
         }
-
         // Initialize default view
         renderMenu('artifacts');
     </script>
